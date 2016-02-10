@@ -14,7 +14,7 @@ function Drawing(){
     }
 };
 
-Drawing.prototype.paint = function(ctx) {
+Drawing.prototype.paint = function(ctx, canvas) {
     console.log(this.getForms());
     ctx.fillStyle = '#F0F0F0'; // set canvas' background color
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -60,16 +60,18 @@ function Line(dotAx, dotAy, dotBx, dotBy, epaisseur, color){
         return this.dotBy;
     }.bind(this);
     
-};
-
-Line.prototype.paint = function(ctx) {
+    this.paint = function(ctx) {
 //TODO Manager color
     ctx.beginPath();
     ctx.moveTo(this.getInitX(), this.getInitY());
     ctx.lineTo(this.getFinalX(), this.getFinalY());
     ctx.stroke();
 
+}.bind(this);
+    
+    
 };
+
 
 function Rectangle(posX, posY, width, height, epaisseur, color){
     Shape.call(this, color, epaisseur);
@@ -94,13 +96,14 @@ function Rectangle(posX, posY, width, height, epaisseur, color){
     this.getFinalY = function(){
         return this.heigth;
     }.bind(this);
+    
+	this.paint = function(ctx) {
+	//TODO Manager color	
+	   ctx.rect(this.getInitX(), this.getInitY(), this.getFinalX(), this.getFinalY());
+	   ctx.stroke();
+	}.bind(this);
 };
 
-Rectangle.prototype.paint = function(ctx) {
-//TODO Manager color
-    ctx.rect(this.getInitX(), this.getInitY(), this.getFinalX(), this.getFinalY());
-    ctx.stroke();
-};
 
 Line.prototype = new Shape();
 Rectangle.prototype = new Shape();
