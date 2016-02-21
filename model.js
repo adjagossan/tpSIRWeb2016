@@ -1,4 +1,3 @@
-
 // Implémenter ici les 4 classes du modèle.
 // N'oubliez pas l'héritage !
 function Drawing() {
@@ -96,7 +95,7 @@ function Rectangle(posX, posY, width, height, epaisseur, color) {
     }.bind(this);
     
     this.setFinalX = function(width) {
-        this.width = width;
+        this.width = width - this.posX;
     }.bind(this);
 
     this.getFinalY = function() {
@@ -104,7 +103,7 @@ function Rectangle(posX, posY, width, height, epaisseur, color) {
     }.bind(this);
     
     this.setFinalY = function(heigth) {
-        this.heigth = heigth;
+        this.heigth = heigth - this.posY;
     }.bind(this);
     
     this.toString = function(){
