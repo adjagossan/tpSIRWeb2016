@@ -27,23 +27,20 @@ function DnD(canvas, interactor) {
 
     this.maFctGerantLeDeplacement = function(evt) {
         if (this.mouseIsPressed) {
-        	res = getMousePosition(canvas, evt);
+            res = getMousePosition(canvas, evt);
             this.posXfinal = res.x;
-    		this.posYfinal = res.y;
-			interactor.onInteractionUpdate(this);
-            
+            this.posYfinal = res.y;
+            interactor.onInteractionUpdate(this);
+
         }
     }.bind(this);
 
     this.maFctGerantLeRelachement = function(evt) {
-        var res;
-        if (this.mouseIsPressed) {
-            res = getMousePosition(canvas, evt);
-            this.posXfinal = res.x;
-            this.posYfinal = res.y;
-            mouseIsPressed = false;            
-            console.log("posXfinal:" + this.posXfinal);
-            console.log("posYfinal:" + this.posYfinal);
+        if (this.mouseIsPressed)
+        {
+            this.posXfinal = 0;
+            this.posYfinal = 0;
+            this.mouseIsPressed = false;
             interactor.onInteractionEnd(this);
         }
     }.bind(this);
@@ -52,7 +49,6 @@ function DnD(canvas, interactor) {
     canvas.addEventListener('mousedown', this.maFctGerantLaPression, false);
     canvas.addEventListener('mousemove', this.maFctGerantLeDeplacement, false);
     canvas.addEventListener('mouseup', this.maFctGerantLeRelachement, false);
-
 }
 ;
 

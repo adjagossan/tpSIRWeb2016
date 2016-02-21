@@ -1,109 +1,117 @@
 
 // Implémenter ici les 4 classes du modèle.
 // N'oubliez pas l'héritage !
-function Drawing(){
+function Drawing() {
     this.shapes = new Array();
-    
-    this.addShape = function(shape){
-        if(shape instanceof Shape)
+
+    this.addShape = function(shape) {
+        if (shape instanceof Shape)
             this.shapes.push(shape);
     }.bind(this);
-    
-    this.getForms = function(){
+
+    this.getForms = function() {
         return this.shapes;
-    }
-};
+    }.bind(this);
+    
+    this.remove = function(index){
+        return this.shapes.splice(index, 1)[0];
+    }.bind(this);
+    
+    this.size = function(){
+        return this.shapes.length;
+    }.bind(this);
+}
+;
 
-Drawing.prototype.paint = function(ctx, canvas) {
-    console.log(this.getForms());
-    ctx.fillStyle = '#F0F0F0'; // set canvas' background color
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    this.getForms().forEach(function(eltDuTableau) {
-        // now fill the canvas
-        console.log(Object.prototype.toString.call(eltDuTableau));
-        eltDuTableau.paint(ctx);
-    });
-};
-
-
-function Shape(color, epaisseur){
+function Shape(color, epaisseur) {
     this.color = color;
     this.epaisseur = epaisseur;
-};
-
-Shape.prototype.paint = function(ctx){
-   ctx.fillStyle = this.color;
-   ctx.lineWidth = this.epaisseur;
 }
+;
 
-function Line(dotAx, dotAy, dotBx, dotBy, epaisseur, color){
+function Line(dotAx, dotAy, dotBx, dotBy, epaisseur, color) {
     Shape.call(this, color, epaisseur);
-    
+
     this.dotAx = dotAx;
     this.dotAy = dotAy;
     this.dotBx = dotBx;
     this.dotBy = dotBy;
-    
-    this.getInitX = function(){
+
+    this.getInitX = function() {
         return this.dotAx;
     }.bind(this);
     
-    this.getInitY = function(){
+    this.setInitX = function(dotAx) {
+        this.dotAx = dotAx;
+    }.bind(this);
+
+    this.getInitY = function() {
         return this.dotAy;
     }.bind(this);
     
-    this.getFinalX = function(){
+    this.setInitY = function(dotAy) {
+        this.dotAy = dotAy;
+    }.bind(this);
+
+    this.getFinalX = function() {
         return this.dotBx;
     }.bind(this);
     
-    this.getFinalY = function(){
+    this.setFinalX = function(dotBx) {
+        this.dotBx = dotBx;
+    }.bind(this);
+    
+    this.getFinalY = function() {
         return this.dotBy;
     }.bind(this);
     
-    this.paint = function(ctx) {
-//TODO Manager color
-    ctx.beginPath();
-    ctx.moveTo(this.getInitX(), this.getInitY());
-    ctx.lineTo(this.getFinalX(), this.getFinalY());
-    ctx.stroke();
-
-}.bind(this);
+    this.setFinalY = function(dotBy) {
+        this.dotBy = dotBy;
+    }.bind(this);
     
-    
-};
+    this.toString = function(){
+        return 'Line('+this.getInitX()+', '+this.getInitY()+', '+this.getFinalX()+', '+this.getFinalY()+')';
+    }.bind(this);
+}
+;
 
-
-function Rectangle(posX, posY, width, height, epaisseur, color){
+function Rectangle(posX, posY, width, height, epaisseur, color) {
     Shape.call(this, color, epaisseur);
-    
+
     this.posX = posX;
     this.posY = posY;
     this.width = width;
     this.heigth = height;
-    
-    this.getInitX = function(){
+
+    this.getInitX = function() {
         return this.posX;
     }.bind(this);
-    
-    this.getInitY = function(){
+
+    this.getInitY = function() {
         return this.posY;
     }.bind(this);
-    
-    this.getFinalX = function(){
+
+    this.getFinalX = function() {
         return this.width;
     }.bind(this);
     
-    this.getFinalY = function(){
+    this.setFinalX = function(width) {
+        this.width = width;
+    }.bind(this);
+
+    this.getFinalY = function() {
         return this.heigth;
     }.bind(this);
     
-	this.paint = function(ctx) {
-	//TODO Manager color	
-	   ctx.rect(this.getInitX(), this.getInitY(), this.getFinalX(), this.getFinalY());
-	   ctx.stroke();
-	}.bind(this);
-};
-
+    this.setFinalY = function(heigth) {
+        this.heigth = heigth;
+    }.bind(this);
+    
+    this.toString = function(){
+        return 'Rectangle('+this.getInitX()+', '+this.getInitY()+', '+this.getFinalX()+', '+this.getFinalY()+')';
+    }.bind(this);
+}
+;
 
 Line.prototype = new Shape();
 Rectangle.prototype = new Shape();
