@@ -9,10 +9,10 @@ function Pencil(ctx, drawing, canvas)
     this.currentShape = 0;
 
     // Liez ici les widgets à la classe pour modifier les attributs présents ci-dessus.
-    this.customizeShape = function(inputTypeColorId, inputTypeNumberId)
+    this.customizeShape = function()
     {
-        this.currColour = document.getElementById(inputTypeColorId).value;
-        this.currLineWidth = document.getElementById(inputTypeNumberId).value;
+        this.currColour = document.getElementById('colour').value;
+        this.currLineWidth = document.getElementById('spinnerWidth').value;
         var inputs = document.getElementsByTagName('input');
         var counter = 0;
         while (counter < inputs.length)
@@ -31,7 +31,7 @@ function Pencil(ctx, drawing, canvas)
     new Bridge(drawing, ctx);
     // Implémentez ici les 3 fonctions onInteractionStart, onInteractionUpdate et onInteractionEnd
     this.onInteractionStart = function(DnD) {
-        this.customizeShape('colour', 'spinnerWidth');
+        this.customizeShape();
         switch (this.currentShape)
         {
             case editingMode.rect:
